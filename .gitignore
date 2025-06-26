@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+target
+/.vscode/
+mvnw
+mvnw.cmd
+.gitattributes
+src/main/resources
