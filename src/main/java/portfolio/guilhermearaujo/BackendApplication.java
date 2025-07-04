@@ -1,6 +1,7 @@
 package portfolio.guilhermearaujo;
 
 
+import org.springframework.web.client.RestTemplate;
 import portfolio.guilhermearaujo.model.Project;
 import portfolio.guilhermearaujo.model.User;
 import portfolio.guilhermearaujo.repository.ProjectRepository;
@@ -16,7 +17,7 @@ import java.util.List;
 @SpringBootApplication
 public class BackendApplication {
 
-	// Método principal que inicia a aplicação Spring Boot
+	// Metodo principal que inicia a aplicação Spring Boot
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 	}
@@ -44,5 +45,9 @@ public class BackendApplication {
 			adminUser.setRoles("ROLE_ADMIN"); // Define o papel do usuário como ADMIN
 			userRepository.save(adminUser); // Salva o usuário administrador no banco de dados
 		};
+	}
+	@Bean // Diz ao Spring para criar e gerir este objeto
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
 	}
 }

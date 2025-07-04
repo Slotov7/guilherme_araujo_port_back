@@ -1,5 +1,6 @@
 package portfolio.guilhermearaujo.config;
 
+
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import portfolio.guilhermearaujo.security.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
@@ -51,11 +52,14 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // Define as regras de autorização para os endpoints
                 .authorizeHttpRequests(auth -> auth
-                        // Permite requisições POST para o endpoint de login sem autenticação
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/contact").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                        // Permite requisições GET para o endpoint de projetos sem autenticação
                         .requestMatchers(HttpMethod.GET, "/api/projects").permitAll()
-                        // Exige autenticação para todas as demais requisições
                         .anyRequest().authenticated()
                 )
                 // Adiciona o filtro JWT antes do filtro padrão de autenticação
