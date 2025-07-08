@@ -1,128 +1,116 @@
-# 🎯 Backend do Portfólio Pessoal
+# 💼 API do Portfólio Pessoal | Backend com Spring Boot
 
-Este repositório contém o código-fonte do backend da minha aplicação de portfólio pessoal. A API foi desenvolvida com foco em **robustez**, **segurança** e **escalabilidade**, servindo como base para exibição dos meus projetos e gerenciamento de conteúdo.
+![Java](https://img.shields.io/badge/Java-17-blue?style=for-the-badge\&logo=openjdk)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.3-green?style=for-the-badge\&logo=spring)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue?style=for-the-badge\&logo=postgresql)
+![JWT](https://img.shields.io/badge/JWT-Auth-purple?style=for-the-badge\&logo=jsonwebtokens)
 
----
-
-## 🚀 Tecnologias Utilizadas
-
-* **Java 17** — Versão LTS da linguagem Java.
-* **Spring Boot 3.3.1** — Framework principal da aplicação.
-* **Spring Web** — Criação de APIs RESTful.
-* **Spring Data JPA** — Persistência de dados com ORM.
-* **Spring Security** — Autenticação e autorização.
-* **PostgreSQL** — Banco de dados relacional.
-* **JWT (JSON Web Token)** — Autenticação stateless e segura.
-* **Maven** — Gerenciador de dependências e build.
-* **Lombok** — Redução de código boilerplate.
+Este repositório contém o backend da minha aplicação de portfólio pessoal, desenvolvido com **Java 17** e **Spring Boot 3.3**.
+A API foi projetada para ser **robusta, segura e escalável**, permitindo o gerenciamento de projetos e a interação com visitantes via formulário de contato.
 
 ---
 
 ## ✨ Funcionalidades
 
-* API RESTful para gerenciamento de projetos.
-* **Endpoint público** para listar projetos: `GET /api/projects`.
-* **Endpoints protegidos** para criação, edição e remoção de projetos (CRUD).
-* Sistema de autenticação com JWT.
-* Autorização baseada em **Roles**, com acesso exclusivo para usuários com `ROLE_ADMIN`.
-* Criação automática de um usuário administrador ao iniciar a aplicação (para testes).
+* **API RESTful completa:** CRUD para gerenciamento de projetos.
+* **Autenticação e autorização seguras:** Implementadas com **Spring Security**.
+* **JWT Stateless Auth:** Autenticação via token JWT, sem uso de sessões.
+* **Controle de acesso por roles:** Apenas usuários com `ROLE_ADMIN` podem acessar endpoints de administração, usando `@PreAuthorize`.
+* **Envio de e-mails transacionais:** Endpoint público para formulário de contato com envio via **SendGrid**.
+* **Proteção contra bots:** Integração com **Google reCAPTCHA v3** para login e contato.
+* **Documentação interativa:** Endpoints testáveis via **Swagger UI (OpenAPI)**.
+* **Configuração flexível por ambiente:** Feature flags no `application.properties` para ativar/desativar recursos como o reCAPTCHA.
 
 ---
 
-## 🛠️ Instalação e Configuração
+## 🛠️ Tecnologias Utilizadas
+
+| Categoria                 | Tecnologias/Ferramentas                            |
+| ------------------------- | -------------------------------------------------- |
+| **Linguagem & Framework** | Java 17, Spring Boot 3.3                           |
+| **Banco de Dados**        | PostgreSQL, Spring Data JPA, Hibernate             |
+| **Segurança**             | Spring Security, JWT (jjwt), BCrypt                |
+| **API Web**               | Spring Web (MVC), RESTful                          |
+| **Serviços Externos**     | SendGrid (e-mail), Google reCAPTCHA v3 (anti-spam) |
+| **Documentação**          | Swagger (OpenAPI 3) com `springdoc-openapi`        |
+| **Build & Gerenciamento** | Maven                                              |
+| **Ferramentas de Dev**    | IntelliJ, Postman, Lombok, Spring DevTools         |
+
+---
+
+## 🚀 Como Executar Localmente
 
 ### Pré-requisitos
 
-* Java 17 ou superior
-* Maven
-* PostgreSQL
+* JDK 17+
+* Maven 3.8+
+* PostgreSQL instalado e rodando
+* Banco de dados criado (ex: `portfolio_db`)
 
-### Passos para execução local:
+### Passo a passo
 
 1. **Clone o repositório:**
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
+git clone https://github.com/Slotov7/guilherme_araujo_port_back.git
+cd guilherme_araujo_port_back
 ```
 
-2. **Configure o banco de dados:**
+2. **Configure o ambiente:**
 
-Edite o arquivo `src/main/resources/application.properties`:
+Crie o arquivo `application.properties` em `src/main/resources/`, com base no modelo `application.properties.example`. Preencha com suas credenciais e chaves (DB, JWT, SendGrid, reCAPTCHA).
 
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/nome_da_sua_db
-spring.datasource.username=seu_usuario_postgres
-spring.datasource.password=sua_senha_postgres
-```
-
-3. **Build e execução da aplicação:**
-
-Usando o Maven Wrapper:
+3. **Compile e execute:**
 
 ```bash
-# No Windows
-.\mvnw.cmd clean install
-
-# No Linux/macOS
+# Compilar
 ./mvnw clean install
+
+# Executar o JAR
+java -jar target/guilhermearaujo-0.0.1-SNAPSHOT.jar
 ```
 
-Execute o JAR gerado:
-
-```bash
-java -jar target/nome-do-seu-jar-0.0.1-SNAPSHOT.jar
-```
-
-A API estará disponível em: `http://localhost:8080`.
+A API estará disponível em:
+📍 `http://localhost:8080`
+📄 Documentação Swagger: `http://localhost:8080/swagger-ui.html`
 
 ---
 
-## 🔑 Endpoints da API
+## 🔐 Autenticação e Teste de Endpoints
 
-### 🔐 Autenticação
+### Usuário padrão inicial
 
-| Método | URL               | Protegido | Descrição                                          |
-| ------ | ----------------- | --------- | -------------------------------------------------- |
-| POST   | `/api/auth/login` | ❌         | Autentica o usuário e retorna um token JWT válido. |
-
-**Exemplo de corpo da requisição:**
-
-```json
-{
-  "username": "admin",
-  "password": "senha123"
-}
-```
-
----
-
-### 📁 Projetos
-
-| Método | URL                  | Protegido | Descrição                             |
-| ------ | -------------------- | --------- | ------------------------------------- |
-| GET    | `/api/projects`      | ❌         | Lista todos os projetos.              |
-| POST   | `/api/projects`      | ✅ (ADMIN) | Cria um novo projeto.                 |
-| PUT    | `/api/projects/{id}` | ✅ (ADMIN) | Atualiza um projeto existente por ID. |
-| DELETE | `/api/projects/{id}` | ✅ (ADMIN) | Remove um projeto por ID.             |
-
----
-
-## 👤 Usuário Padrão
-
-Ao iniciar a aplicação pela primeira vez, um usuário administrador é criado automaticamente com as credenciais:
+Ao rodar pela primeira vez, um usuário admin é criado automaticamente:
 
 * **Username:** `admin`
-* **Senha:** `senha123`
+* **Password:** `senha123`
+
+### Como usar o JWT:
+
+1. Faça um `POST` em `/api/auth/login` com suas credenciais.
+2. Copie o token retornado.
+3. No Swagger UI, clique em "Authorize" e cole o token no formato:
+   `Bearer <seu_token>`
+4. Pronto! Você pode testar endpoints protegidos.
 
 ---
 
-## 🔐 Acessando Endpoints Protegidos
+## 📂 Endpoints
 
-1. Realize login em `/api/auth/login` com as credenciais do administrador.
-2. Copie o token JWT retornado.
-3. Para acessar endpoints protegidos, inclua o seguinte header nas requisições:
+A documentação completa dos endpoints pode ser acessada no **Swagger UI**. Alguns exemplos disponíveis:
 
-```
-Authorization: Bearer seu_token_jwt_aqui
-```
+* `/api/projects` – CRUD de projetos (restrito a admins)
+* `/api/auth/login` – Geração de JWT
+* `/api/contact` – Envio de mensagem para o administrador
+* `/api/public/**` – Endpoints abertos
+
+---
+
+## 💡 Notas Finais
+
+Este projeto foi uma excelente oportunidade para aprofundar conhecimentos em segurança, arquitetura de aplicações e boas práticas com Spring Boot.
+O código está disponível para estudos, sugestões e contribuições. Sinta-se à vontade para explorar!
+
+---
+
+Desenvolvido por **Guilherme Araújo**
