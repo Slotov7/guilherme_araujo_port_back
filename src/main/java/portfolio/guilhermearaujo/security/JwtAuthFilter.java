@@ -45,7 +45,7 @@ public class JwtAuthFilter extends OncePerRequestFilter { // Filtro que é execu
         filterChain.doFilter(request, response);
     }
 
-    // Método auxiliar que extrai o token do cabeçalho "Authorization" da requisição
+    // Metodo auxiliar que extrai o token do cabeçalho "Authorization" da requisição
     private String extractTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         // Verifica se o token existe e se inicia com "Bearer ", removendo o prefixo se existir

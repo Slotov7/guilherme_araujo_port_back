@@ -1,7 +1,10 @@
 package portfolio.guilhermearaujo.config;
 
 
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import portfolio.guilhermearaujo.security.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,16 +27,28 @@ public class SecurityConfig {
 
     // Filtro responsável por validar o token JWT em cada requisição
     private final JwtAuthFilter jwtAuthFilter;
+    private final UserDetailsService userDetailsService;
 
     // Construtor que injeta o filtro JWT na classe de configuração
-    public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter, UserDetailsService userDetailsService) {
         this.jwtAuthFilter = jwtAuthFilter;
+        this.userDetailsService = userDetailsService;
     }
 
     // Define um bean para o encoder de senhas utilizando o algoritmo BCrypt
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        // Define o serviço que busca os usuários
+        authProvider.setUserDetailsService(userDetailsService);
+        // Define o codificador de senhas que será usado para a verificação
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
 
     // Cria um bean para o gerenciador de autenticação, necessário para processar a autenticação de usuários
@@ -63,6 +78,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 // Adiciona o filtro JWT antes do filtro padrão de autenticação
+                .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 // Finaliza a configuração e retorna o SecurityFilterChain
                 .build();

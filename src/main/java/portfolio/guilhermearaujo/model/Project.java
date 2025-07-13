@@ -18,4 +18,5 @@ public class Project {
     private String description; // Descrição do projeto
     private String imageUrl; // URL da imagem do projeto
     private String repoUrl; // URL do repositório do projeto
+    private String technologies;
 }

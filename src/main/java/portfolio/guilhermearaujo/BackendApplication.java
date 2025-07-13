@@ -32,29 +32,33 @@ public class BackendApplication {
 			Project p1 = new Project();
 			p1.setName("Meu Portfólio - Backend"); // Nome do projeto
 			p1.setDescription("API REST com Spring Boot para o meu portfólio pessoal."); // Descrição do projeto
-			p1.setImageUrl("https://res.cloudinary.com/dfn2uzjqw/image/upload/v1751901321/cld-sample-3.jpg"); // URL da imagem do projeto
+			p1.setImageUrl("https://res.cloudinary.com/dqtwohf2x/image/upload/v1752432473/cld-sample.jpg"); // URL da imagem do projeto
 			p1.setRepoUrl("https://github.com/"); // URL do repositório do projeto
+			p1.setTechnologies("java,spring,postgresql,jwt,hibernate");
 			projectRepository.save(p1); // Salva o projeto no banco de dados
 
 			Project p2 = new Project();
 			p2.setName("Meu Portfólio - Frontend");
 			p2.setDescription("Interface com React e Next.js para o meu portfólio.");
-			p2.setImageUrl("https://res.cloudinary.com/dfn2uzjqw/image/upload/v1751901321/cld-sample.jpg");
+			p2.setImageUrl("https://res.cloudinary.com/dqtwohf2x/image/upload/v1752432472/samples/coffee.jpg");
 			p2.setRepoUrl("https://github.com/");
+			p2.setTechnologies("typescript,nextjs,figma,css,tailwind, react");
 			projectRepository.save(p2);
 
 			Project p3 = new Project();
 			p3.setName("memory game - pf");
 			p3.setDescription("Interface com React e Next.js para o meu portfólio.");
-			p3.setImageUrl("https://res.cloudinary.com/dfn2uzjqw/image/upload/v1751901321/cld-sample-5.jpg");
+			p3.setImageUrl("https://res.cloudinary.com/dqtwohf2x/image/upload/v1752432473/cld-sample-2.jpg");
 			p3.setRepoUrl("https://github.com/");
+			p3.setTechnologies("javascript,html,css");
 			projectRepository.save(p3);
 
 			Project p4 = new Project();
 			p4.setName("snake game - poo");
 			p4.setDescription("Interface com React e Next.js para o meu portfólio.");
-			p4.setImageUrl("https://res.cloudinary.com/dfn2uzjqw/image/upload/v1751901320/samples/coffee.jpg");
+			p4.setImageUrl("https://res.cloudinary.com/dqtwohf2x/image/upload/v1752432473/samples/upscale-face-1.jpg");
 			p4.setRepoUrl("https://github.com/");
+			p4.setTechnologies("java");
 			projectRepository.save(p4);
 
 			// Remove todos os registros antigos de usuários

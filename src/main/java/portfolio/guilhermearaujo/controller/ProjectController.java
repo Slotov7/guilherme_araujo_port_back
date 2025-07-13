@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.MediaType;
-import portfolio.guilhermearaujo.service.ImageUploadService;
+import portfolio.guilhermearaujo.service.FileStorageService;
 
 // Declara que essa classe é um controlador REST
 @RestController
@@ -22,11 +22,11 @@ public class ProjectController {
 
     // Repositório para operações de persistência dos projetos
     private final ProjectRepository projectRepository;
-    private final ImageUploadService imageUploadService;
+    private final FileStorageService imageUploadService;
     private final ObjectMapper objectMapper;
 
     // Construtor que injeta o repositório de projetos
-    public ProjectController(ProjectRepository projectRepository, ImageUploadService imageUploadService, ObjectMapper objectMapper) {
+    public ProjectController(ProjectRepository projectRepository, FileStorageService imageUploadService, ObjectMapper objectMapper) {
         this.projectRepository = projectRepository;
         this.imageUploadService = imageUploadService;
         this.objectMapper = objectMapper;
