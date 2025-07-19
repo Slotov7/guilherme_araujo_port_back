@@ -18,7 +18,7 @@ public class JpaUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    // Implementa o método para carregar os detalhes do usuário pelo nome
+    // Implementa o metodo para carregar os detalhes do usuário pelo nome
     // Se o usuário não for encontrado, lança UsernameNotFoundException
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

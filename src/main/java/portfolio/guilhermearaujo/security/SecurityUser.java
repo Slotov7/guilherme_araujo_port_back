@@ -18,7 +18,7 @@ public class SecurityUser implements UserDetails {
         this.user = user;
     }
 
-    // Método que converte as roles do usuário em uma coleção de GrantedAuthority
+    // Metodo que converte as roles do usuário em uma coleção de GrantedAuthority
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.stream(user.getRoles().split(","))
