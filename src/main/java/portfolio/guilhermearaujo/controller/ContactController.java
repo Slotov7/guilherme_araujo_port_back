@@ -31,12 +31,9 @@ public class ContactController {
     private boolean recaptchaEnabled;
 
     @PostMapping
-    public ResponseEntity<Void> sendEmail(@RequestBody String rawJsonBody ) throws JsonProcessingException {
-
+    public ResponseEntity<Void> sendEmail(@RequestBody ContactRequest contactRequest) {
         try {
-            ContactRequest contactRequest = objectMapper.readValue(rawJsonBody, ContactRequest.class);
-
-            if (recaptchaEnabled){
+            if (recaptchaEnabled) {
                 String recaptchaToken = contactRequest.getRecaptchaResponse();
                 boolean isRecaptchaValid = recaptchaService.validateRecaptcha(recaptchaToken);
                 if (!isRecaptchaValid) {
@@ -48,9 +45,10 @@ public class ContactController {
             emailService.sendContactEmail(contactRequest);
 
             return ResponseEntity.ok().build();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
+
 }

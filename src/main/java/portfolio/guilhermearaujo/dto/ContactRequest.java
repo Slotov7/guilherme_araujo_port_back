@@ -10,5 +10,5 @@ public class ContactRequest{
     private String email;
     private String message;
 
-    private String recaptchaResponse; // Resposta do reCAPTCHA para validação de spamq
+    private String recaptchaResponse; // Resposta do reCAPTCHA para validação de spam
 }
