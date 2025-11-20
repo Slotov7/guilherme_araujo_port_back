@@ -1,6 +1,6 @@
 package portfolio.guilhermearaujo;
 
-
+import org.springframework.beans.factory.annotation.Value; // Importante adicionar isto
 import org.springframework.web.client.RestTemplate;
 import portfolio.guilhermearaujo.model.Project;
 import portfolio.guilhermearaujo.model.User;
@@ -11,67 +11,40 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import java.util.List;
 
-// Anota a classe como ponto de entrada da aplicação Spring Boot
 @SpringBootApplication
 public class BackendApplication {
 
-	// Metodo principal que inicia a aplicação Spring Boot
+	// Injetamos os valores do application.properties aqui
+	@Value("${setup.admin.username}")
+	private String adminUsername;
+
+	@Value("${setup.admin.password}")
+	private String adminPassword;
+
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
-	// Cria um bean CommandLineRunner para executar o código após a inicialização da aplicação
 	@Bean
 	CommandLineRunner initDatabase(ProjectRepository projectRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		return args -> {
-			// Remove todos os registros antigos de projetos
-			projectRepository.deleteAll();
-			// Cria e configura um novo projeto para popular o banco de dados
-			Project p1 = new Project();
-			p1.setName("Meu Portfólio - Backend"); // Nome do projeto
-			p1.setDescription("API REST com Spring Boot para o meu portfólio pessoal."); // Descrição do projeto
-			p1.setImageUrl("https://res.cloudinary.com/dqtwohf2x/image/upload/v1752432473/cld-sample.jpg"); // URL da imagem do projeto
-			p1.setRepoUrl("https://github.com/"); // URL do repositório do projeto
-			p1.setTechnologies("java,spring,postgresql,jwt,hibernate");
-			projectRepository.save(p1); // Salva o projeto no banco de dados
+			if (userRepository.findByUsername(adminUsername).isEmpty()) {
 
-			Project p2 = new Project();
-			p2.setName("Meu Portfólio - Frontend");
-			p2.setDescription("Interface com React e Next.js para o meu portfólio.");
-			p2.setImageUrl("https://res.cloudinary.com/dqtwohf2x/image/upload/v1752432472/samples/coffee.jpg");
-			p2.setRepoUrl("https://github.com/");
-			p2.setTechnologies("typescript,nextjs,figma,css,tailwind, react");
-			projectRepository.save(p2);
+				User adminUser = new User();
+				adminUser.setUsername(adminUsername);
+				adminUser.setPassword(passwordEncoder.encode(adminPassword));
+				adminUser.setRoles("ROLE_ADMIN");
 
-			Project p3 = new Project();
-			p3.setName("memory game - pf");
-			p3.setDescription("Interface com React e Next.js para o meu portfólio.");
-			p3.setImageUrl("https://res.cloudinary.com/dqtwohf2x/image/upload/v1752432473/cld-sample-2.jpg");
-			p3.setRepoUrl("https://github.com/");
-			p3.setTechnologies("javascript,html,css");
-			projectRepository.save(p3);
-
-			Project p4 = new Project();
-			p4.setName("snake game - poo");
-			p4.setDescription("Interface com React e Next.js para o meu portfólio.");
-			p4.setImageUrl("https://res.cloudinary.com/dqtwohf2x/image/upload/v1752432473/samples/upscale-face-1.jpg");
-			p4.setRepoUrl("https://github.com/");
-			p4.setTechnologies("java");
-			projectRepository.save(p4);
-
-			// Remove todos os registros antigos de usuários
-			userRepository.deleteAll();
-			// Cria e configura um usuário administrador para o sistema
-			User adminUser = new User();
-			adminUser.setUsername("admin"); // Nome de usuário do administrador
-			adminUser.setPassword(passwordEncoder.encode("senha123")); // Senha do administrador, codificada com PasswordEncoder
-			adminUser.setRoles("ROLE_ADMIN"); // Define o papel do usuário como ADMIN
-			userRepository.save(adminUser); // Salva o usuário administrador no banco de dados
+				userRepository.save(adminUser);
+				System.out.println(">>> [BackendApplication] Usuário ADMIN (" + adminUsername + ") criado com sucesso!");
+			} else {
+				System.out.println(">>> [BackendApplication] Usuário ADMIN já existe.");
+			}
 		};
 	}
-	@Bean // Diz ao Spring para criar e gerir este objeto
+
+	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
