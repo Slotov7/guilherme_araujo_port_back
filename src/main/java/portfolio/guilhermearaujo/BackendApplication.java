@@ -1,8 +1,7 @@
 package portfolio.guilhermearaujo;
 
-import org.springframework.beans.factory.annotation.Value; // Importante adicionar isto
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
-import portfolio.guilhermearaujo.model.Project;
 import portfolio.guilhermearaujo.model.User;
 import portfolio.guilhermearaujo.repository.ProjectRepository;
 import portfolio.guilhermearaujo.repository.UserRepository;

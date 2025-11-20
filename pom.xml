@@ -13,11 +13,15 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>guilhermearaujo</name>
 	<description>portifolio</description>
+
 	<properties>
-		<!-- A CORREÇÃO FINAL ESTÁ AQUI -->
 		<java.version>17</java.version>
 		<lombok.version>1.18.32</lombok.version>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -73,7 +77,6 @@
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.5.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.cloudinary/cloudinary-core -->
 		<dependency>
 			<groupId>com.cloudinary</groupId>
 			<artifactId>cloudinary-http45</artifactId>
