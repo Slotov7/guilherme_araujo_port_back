@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Mensagem do Portfólio</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, sans-serif;">
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; margin: 20px auto; background-color: #ffffff; border: 1px solid #dddddd;">
+    <tr>
+        <td align="center" bgcolor="#1976d2" style="padding: 20px 0; color: #ffffff; font-size: 24px;">
+            Nova Mensagem do Portfólio
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#ffffff" style="padding: 40px 30px;">
+            <h2 style="color: #1976d2;">Detalhes do Contato:</h2>
+            <!-- ATUALIZAÇÃO: Adicionados os novos campos -->
+            <p><strong>Nome Completo:</strong> {{senderFirstName}} {{senderLastName}}</p>
+            <p><strong>E-mail de Resposta:</strong> <a href="mailto:{{senderEmail}}">{{senderEmail}}</a></p>
+            <p><strong>Celular:</strong> {{senderPhone}}</p>
+
+            <h2 style="color: #1976d2; margin-top: 30px;">Mensagem:</h2>
+            <div style="border: 1px solid #e0e0e0; padding: 15px; background-color: #f9f9f9; border-radius: 5px;">
+                <p style="margin: 0; white-space: pre-wrap;">{{message}}</p>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#eeeeee" style="padding: 20px 30px; text-align: center; color: #777777; font-size: 12px;">
+            Este e-mail foi enviado através do formulário de contacto do seu portfólio.
+        </td>
+    </tr>
+</table>
+</body>
+</html>

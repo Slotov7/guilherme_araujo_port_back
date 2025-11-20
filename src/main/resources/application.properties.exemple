@@ -1,0 +1,34 @@
+
+spring.application.name=guilhermearaujo
+# Configura��o  da Base de Dados
+spring.datasource.url=jdbc:postgresql://localhost:5432/portfolio_db
+spring.datasource.username= seu usuário
+spring.datasource.password= sua senha
+
+# Configuração JPA/Hibernate
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+# Configuração do Servidor e JWT
+server.port=8080
+api.jwt.secret= sua chave secreta
+
+
+spring.mail.host=smtp.sendgrid.net
+spring.mail.port=587
+spring.mail.username= seu usuário
+spring.mail.password= sua senha
+portfolio.mail.from=seu email
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+
+# Configuração do recaptcha
+google.recaptcha.secret-key=sua chave secreta
+google.recaptcha.site-key = sua chave do site
+recaptcha.validation.enabled=true
+
+
+# Cloudinary Config
+cloudinary.url=https://api.cloudinary.com/v1_1/your_cloud_name
+
+spring.servlet.multipart.max-file-size=3MB
