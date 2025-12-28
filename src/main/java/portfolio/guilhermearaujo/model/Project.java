@@ -16,8 +16,7 @@ public class Project {
 
     private String name;
 
-    @Lob
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 2000)
     private String description;
 
     @Column(length = 1000)
