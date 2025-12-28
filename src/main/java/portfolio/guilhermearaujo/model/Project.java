@@ -3,6 +3,10 @@ package portfolio.guilhermearaujo.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashSet;
+import java.util.Set;
+
+
 @Entity
 @Data
 public class Project {
@@ -21,6 +25,11 @@ public class Project {
     @Column(nullable = true)
     private String repoUrl;
 
-    @Column(length = 1000)
-    private String technologies;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "project_technologies",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "technology_id")
+    )
+    private Set<Technology> technologies = new HashSet<>();
 }
